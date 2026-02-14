@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To My Otter Half 💘</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #a8c5c5;
+    --pink: #ff4d88;
+    --pink-coral: #ff6b6b;
+    --pink-light: #ffb3d9;
+    --pink-pale: #ffd4e5;
+    
+    --fur: #4a3426;
+    --fur-dark: #3a2618;
+    --face: #f5f0e8;
+    
+    --gold: #daa520;
+    --red: #ff4d4d;
+    --peach: #ffb3a7;
+    
+    --leaf: #5a8a5a;
+  }
+
+  body{
+    background: linear-gradient(180deg, #ff6b8a 0%, #a8c5c5 40%);
+    font-family: 'Brush Script MT', cursive, 'Segoe UI', sans-serif;
+    text-align: center;
+    padding: 0;
+    user-select: none;
+    margin: 0;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  h1{
+    color: white;
+    margin: 30px 0 20px;
+    font-size: 64px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    font-style: italic;
+    letter-spacing: 3px;
+  }
+
+  .message-gold{
+    color: var(--gold);
+    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.3));
+  }
+
+  .card-wrapper{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .card-container{
+    position: relative;
+    width: 450px;
+    height: 500px;
+    margin: 0 auto;
+    filter: drop-shadow(0 8px 20px rgba(0,0,0,0.25));
+    transition: transform 3s ease-in-out, opacity 2s ease-in-out;
+  }
+
+  .card-container.walk-away{
+    transform: translateX(150vw);
+    opacity: 0;
+  }
+
+  /* =========================
+     OTTER BODY (standing upright - WIDER for bouquet at chest)
+     ========================= */
+  .body{
+    position: absolute;
+    width: 280px;
+    height: 350px;
+    left: 85px;
+    top: 90px;
+    background: var(--fur-dark);
+    border-radius: 50% 50% 45% 45%;
+    box-shadow: inset -15px -10px 20px rgba(0,0,0,0.3);
+    z-index: 2;
+  }
+
+  .belly{
+    position: absolute;
+    width: 220px;
+    height: 260px;
+    left: 115px;
+    top: 130px;
+    background: var(--face);
+    border-radius: 50%;
+    z-index: 3;
+    box-shadow: inset -8px -8px 15px rgba(0,0,0,0.08);
+  }
+
+  /* Hide the bottom of belly with overlay */
+  .belly::after{
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 80px;
+    bottom: -40px;
+    left: 0;
+    background: transparent;
+  }
+
+  /* =========================
+     ARMS (paws touching the stem bundle - EVEN LONGER)
+     ========================= */
+  .arm{
+    position: absolute;
+    width: 48px;
+    height: 150px;
+    background: var(--fur-dark);
+    border-radius: 50%;
+    box-shadow: inset -8px -6px 12px rgba(0,0,0,0.25);
+    z-index: 8;
+  }
+
+  .arm.left{
+    left: 120px;
+    top: 165px;
+    transform: rotate(-65deg);
+  }
+
+  .arm.right{
+    left: 282px;
+    top: 165px;
+    transform: rotate(65deg);
+  }
+
+  .paw{
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    bottom: -4px;
+    left: 5px;
+    background: var(--fur);
+    border-radius: 50% 50% 60% 60%;
+    box-shadow: inset -4px -4px 8px rgba(0,0,0,0.2);
+  }
+
+  .paw::before{
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* =========================
+     HEAD (repositioned for wider body)
+     ========================= */
+  .head{
+    position: absolute;
+    width: 200px;
+    height: 180px;
+    left: 125px;
+    top: -20px;
+    background: var(--fur);
+    border-radius: 50% 50% 55% 55%;
+    box-shadow: inset -12px -8px 15px rgba(0,0,0,0.2);
+    z-index: 5;
+  }
+
+  .ear{
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    background: var(--fur-dark);
+    border-radius: 50%;
+    top: 50px;
+    box-shadow: inset -4px -4px 8px rgba(0,0,0,0.3);
+  }
+  .ear.left{ left: -15px; }
+  .ear.right{ right: -15px; }
+
+  .face{
+    position: absolute;
+    width: 185px;
+    height: 160px;
+    left: 8px;
+    top: 15px;
+    background: var(--face);
+    border-radius: 50%;
+    box-shadow: inset -8px -8px 12px rgba(0,0,0,0.06);
+    z-index: 1;
+  }
+
+  .eye{
+    position: absolute;
+    width: 22px;
+    height: 28px;
+    background: #0b0b0b;
+    border-radius: 50% / 60%;
+    top: 60px;
+    z-index: 2;
+  }
+  .eye.left{ left: 45px; }
+  .eye.right{ left: 133px; }
+  
+  .eye::after{
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 50%;
+    top: 5px;
+    left: 6px;
+  }
+
+  .nose{
+    position: absolute;
+    width: 28px;
+    height: 20px;
+    background: #0b0b0b;
+    border-radius: 50% / 60%;
+    top: 95px;
+    left: 86px;
+    z-index: 3;
+  }
+
+  .mouth{
+    position: absolute;
+    width: 50px;
+    height: 22px;
+    left: 75px;
+    top: 112px;
+    border: 3px solid rgba(0,0,0,0.7);
+    border-color: transparent transparent rgba(0,0,0,0.7) transparent;
+    border-radius: 0 0 50px 50px;
+    z-index: 3;
+  }
+
+  .whiskers{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .wh{
+    position: absolute;
+    width: 70px;
+    height: 2.5px;
+    background: rgba(60, 40, 30, 0.8);
+    border-radius: 2px;
+  }
+
+  .wh.l1{ left: -30px; top: 100px; transform: rotate(20deg); }
+  .wh.l2{ left: -30px; top: 108px; transform: rotate(10deg); width: 65px; }
+  .wh.l3{ left: -26px; top: 116px; transform: rotate(-5deg); width: 60px; }
+
+  .wh.r1{ right: -30px; top: 100px; transform: rotate(-20deg); }
+  .wh.r2{ right: -30px; top: 108px; transform: rotate(-10deg); width: 65px; }
+  .wh.r3{ right: -26px; top: 116px; transform: rotate(5deg); width: 60px; }
+
+  /* =========================
+     FEET - HIDDEN (cut off at belly line)
+     ========================= */
+  .foot{
+    display: none;
+  }
+
+  /* =========================
+     HEART BOUQUET (balloon-shaped hearts, stems bundle together, moved DOWN)
+     ========================= */
+  .bouquet{
+    position: absolute;
+    left: 125px;
+    top: 135px;
+    width: 200px;
+    height: 180px;
+    z-index: 9;
+    animation: bouquetFloat 3s ease-in-out infinite;
+  }
+
+  @keyframes bouquetFloat{
+    0%, 100%{ transform: translateY(0px) rotate(0deg); }
+    50%{ transform: translateY(-8px) rotate(1deg); }
+  }
+
+  .stem{
+    position: absolute;
+    width: 8px;
+    background: linear-gradient(180deg, #6bb66b, #4a9d4a);
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    z-index: 6;
+  }
+
+  /* Stems converge to center bottom - bundle together */
+  .stem.s1{ left: 92px; top: 40px; height: 85px; width: 7px; transform: rotate(-15deg); transform-origin: bottom center; }
+  .stem.s2{ left: 96px; top: 50px; height: 75px; width: 7px; transform: rotate(-8deg); transform-origin: bottom center; }
+  .stem.s3{ left: 99px; top: 45px; height: 80px; width: 8px; transform: rotate(-3deg); transform-origin: bottom center; }
+  .stem.s4{ left: 102px; top: 40px; height: 85px; width: 8px; transform: rotate(2deg); transform-origin: bottom center; }
+  .stem.s5{ left: 105px; top: 48px; height: 77px; width: 7px; transform: rotate(7deg); transform-origin: bottom center; }
+  .stem.s6{ left: 108px; top: 35px; height: 90px; width: 7px; transform: rotate(12deg); transform-origin: bottom center; }
+  .stem.s7{ left: 101px; top: 55px; height: 70px; width: 7px; transform: rotate(0deg); transform-origin: bottom center; }
+
+  /* Stem bundle at bottom where paws hold */
+  .stem-bundle{
+    position: absolute;
+    left: 96px;
+    top: 120px;
+    width: 16px;
+    height: 22px;
+    background: linear-gradient(180deg, #4a9d4a, #3d6b3d);
+    border-radius: 4px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+    z-index: 5;
+  }
+
+  .leaf{
+    position: absolute;
+    width: 18px;
+    height: 14px;
+    background: var(--leaf);
+    border-radius: 50% 0 50% 50%;
+    box-shadow: inset -2px -2px 4px rgba(0,0,0,0.2);
+    z-index: 7;
+  }
+  .leaf.l1{ left: 88px; top: 70px; transform: rotate(30deg); }
+  .leaf.l2{ left: 112px; top: 75px; transform: rotate(-30deg); }
+  .leaf.l3{ left: 80px; top: 55px; transform: rotate(25deg); }
+  .leaf.l4{ left: 120px; top: 60px; transform: rotate(-25deg); }
+  .leaf.l5{ left: 95px; top: 85px; transform: rotate(15deg); }
+  .leaf.l6{ left: 105px; top: 90px; transform: rotate(-15deg); }
+
+  /* Flower petals on sides */
+  .petal{
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    opacity: 0.85;
+    z-index: 14;
+  }
+  
+  .petal.pink1{ 
+    left: 5px; 
+    top: 25px; 
+    background: radial-gradient(circle at 30% 30%, #ffd4e5, #ffb3d9);
+    box-shadow: 0 2px 8px rgba(255, 179, 217, 0.4);
+  }
+  .petal.pink2{ 
+    left: 165px; 
+    top: 30px; 
+    background: radial-gradient(circle at 30% 30%, #ffd4e5, #ffb3d9);
+    box-shadow: 0 2px 8px rgba(255, 179, 217, 0.4);
+  }
+  .petal.coral1{ 
+    left: 15px; 
+    top: 50px; 
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle at 30% 30%, #ffb3a7, #ff8080);
+    box-shadow: 0 2px 8px rgba(255, 128, 128, 0.4);
+  }
+  .petal.coral2{ 
+    left: 170px; 
+    top: 55px; 
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle at 30% 30%, #ffb3a7, #ff8080);
+    box-shadow: 0 2px 8px rgba(255, 128, 128, 0.4);
+  }
+
+  .heart{
+    position: absolute;
+    width: 40px;
+    height: 35px;
+    z-index: 15;
+  }
+
+  .heart::before,
+  .heart::after{
+    content: "";
+    position: absolute;
+    width: 42px;
+    height: 55px;
+    border-radius: 70% 70% 0 0;
+  }
+
+  .heart::before{
+    left: -21px;
+    transform: rotate(-45deg);
+    transform-origin: 100% 100%;
+  }
+
+  .heart::after{
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 0 100%;
+  }
+
+  /* Animate individual hearts */
+  @keyframes heartPulse1{
+    0%, 100%{ transform: scale(1) rotate(-5deg); }
+    50%{ transform: scale(1.08) rotate(-3deg); }
+  }
+  @keyframes heartPulse2{
+    0%, 100%{ transform: scale(1) rotate(8deg); }
+    50%{ transform: scale(1.06) rotate(10deg); }
+  }
+  @keyframes heartPulse3{
+    0%, 100%{ transform: scale(1) rotate(-3deg); }
+    50%{ transform: scale(1.07) rotate(-1deg); }
+  }
+
+  /* Gold hearts - center cluster */
+  .heart.gold::before,
+  .heart.gold::after{
+    background: linear-gradient(135deg, #f4d03f, var(--gold));
+    box-shadow: 0 0 20px rgba(218, 165, 32, 0.5);
+  }
+  .heart.gold.h1{ 
+    left: 75px; 
+    top: 15px; 
+    animation: heartPulse1 2.5s ease-in-out infinite;
+    z-index: 17;
+  }
+  .heart.gold.h2{ 
+    left: 80px; 
+    top: 45px; 
+    animation: heartPulse2 2.8s ease-in-out infinite 0.3s;
+    z-index: 16;
+  }
+  .heart.gold.h3{ 
+    left: 65px; 
+    top: 30px; 
+    animation: heartPulse3 2.6s ease-in-out infinite 0.6s;
+    z-index: 16;
+    width: 38px;
+    height: 33px;
+  }
+  .heart.gold.h3::before,
+  .heart.gold.h3::after{
+    width: 40px;
+    height: 52px;
+    border-radius: 70% 70% 0 0;
+  }
+  .heart.gold.h3::before{ left: -20px; }
+
+  /* Pink hearts - left side cluster */
+  .heart.pink::before,
+  .heart.pink::after{
+    background: linear-gradient(135deg, #ffb3d9, #ff85c0);
+    box-shadow: 0 0 20px rgba(255, 179, 217, 0.5);
+  }
+  .heart.pink.h1{ 
+    left: 35px; 
+    top: 10px; 
+    animation: heartPulse2 2.4s ease-in-out infinite 0.2s;
+    z-index: 17;
+    width: 42px;
+    height: 37px;
+  }
+  .heart.pink.h1::before,
+  .heart.pink.h1::after{
+    width: 44px;
+    height: 57px;
+    border-radius: 70% 70% 0 0;
+  }
+  .heart.pink.h1::before{ left: -22px; }
+
+  .heart.pink.h2{ 
+    left: 48px; 
+    top: 40px; 
+    animation: heartPulse1 2.7s ease-in-out infinite 0.4s;
+    z-index: 16;
+  }
+
+  /* Red/coral hearts - right side cluster */
+  .heart.red::before,
+  .heart.red::after{
+    background: linear-gradient(135deg, #ff8080, var(--red));
+    box-shadow: 0 0 20px rgba(255, 77, 77, 0.5);
+  }
+  .heart.red.h1{ 
+    left: 115px; 
+    top: 5px; 
+    animation: heartPulse3 2.3s ease-in-out infinite 0.1s;
+    z-index: 17;
+    width: 38px;
+    height: 33px;
+  }
+  .heart.red.h1::before,
+  .heart.red.h1::after{
+    width: 40px;
+    height: 52px;
+    border-radius: 70% 70% 0 0;
+  }
+  .heart.red.h1::before{ left: -20px; }
+
+  .heart.red.h2{ 
+    left: 105px; 
+    top: 35px; 
+    animation: heartPulse2 2.9s ease-in-out infinite 0.5s;
+    z-index: 16;
+    width: 38px;
+    height: 33px;
+  }
+  .heart.red.h2::before,
+  .heart.red.h2::after{
+    width: 40px;
+    height: 52px;
+    border-radius: 70% 70% 0 0;
+  }
+  .heart.red.h2::before{ left: -20px; }
+
+  /* =========================
+     YES Button & Love Message
+     ========================= */
+  #yes-button{ 
+    margin-top: 40px;
+    font-size: 28px;
+    padding: 16px 40px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 700;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    background: linear-gradient(135deg, #ff6b9d, #ff4d88);
+    color: white;
+  }
+  
+  #yes-button:hover{
+    background: linear-gradient(135deg, #ff5a8c, #ff3d77);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 77, 136, 0.5);
+  }
+
+  #yes-button.hidden{
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .love-message{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    max-width: 600px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: all 1s ease-out;
+    z-index: 10000;
+    pointer-events: none;
+  }
+
+  .love-message.show{
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  .message-content{
+    font-size: 28px;
+    line-height: 1.6;
+    color: #333;
+    text-align: center;
+    font-family: 'Delius', cursive, 'Segoe UI', sans-serif;
+    font-style: normal;
+  }
+
+  .message-highlight{
+    color: var(--pink);
+    font-weight: 700;
+    font-size: 32px;
+  }
+
+  @keyframes celebrate{
+    0%, 100%{ transform: translateY(0px) rotate(0deg); }
+    25%{ transform: translateY(-15px) rotate(-5deg); }
+    75%{ transform: translateY(-15px) rotate(5deg); }
+  }
+  }
+
+  @keyframes heartFall{
+    0%{ 
+      transform: translateY(-100px) rotate(0deg);
+      opacity: 0;
+    }
+    10%{
+      opacity: 1;
+    }
+    90%{
+      opacity: 1;
+    }
+    100%{ 
+      transform: translateY(100vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes sparkle{
+    0%, 100%{ transform: scale(0) rotate(0deg); opacity: 0; }
+    50%{ transform: scale(1) rotate(180deg); opacity: 1; }
+  }
+
+  .celebrating{
+    animation: celebrate 1.5s ease-in-out infinite;
+  }
+
+  .floating-heart{
+    position: fixed;
+    font-size: 40px;
+    pointer-events: none;
+    z-index: 9999;
+    animation: heartFall 4s linear forwards;
+  }
+
+  @media (max-width: 600px) {
+    .card-container{
+      transform: scale(0.7);
+    }
+    h1{
+      font-size: 38px;
+    }
+    #yes-button{
+      font-size: 22px;
+      padding: 14px 30px;
+    }
+    .love-message{
+      max-width: 90%;
+      padding: 30px 20px;
+    }
+    .message-content{
+      font-size: 20px;
+    }
+    .message-highlight{
+      font-size: 24px;
+    }
+  }
+</style>
+</head>
+
+<body>
+<h1>To my <span class="message-gold">Otter half</span></h1>
+
+<div class="card-container" role="img" aria-label="Cute cartoon otter standing and holding a bouquet of colorful hearts">
+  
+  <!-- Body -->
+  <div class="body"></div>
+  <div class="belly"></div>
+
+  <!-- Feet -->
+  <div class="foot left"></div>
+  <div class="foot right"></div>
+
+  <!-- Arms -->
+  <div class="arm left"><div class="paw"></div></div>
+  <div class="arm right"><div class="paw"></div></div>
+
+  <!-- Bouquet of Hearts -->
+  <div class="bouquet">
+    <!-- Individual stems converging to bundle -->
+    <div class="stem s1"></div>
+    <div class="stem s2"></div>
+    <div class="stem s3"></div>
+    <div class="stem s4"></div>
+    <div class="stem s5"></div>
+    <div class="stem s6"></div>
+    <div class="stem s7"></div>
+    
+    <!-- Stem bundle at bottom -->
+    <div class="stem-bundle"></div>
+    
+    <!-- Leaves -->
+    <div class="leaf l1"></div>
+    <div class="leaf l2"></div>
+    <div class="leaf l3"></div>
+    <div class="leaf l4"></div>
+    <div class="leaf l5"></div>
+    <div class="leaf l6"></div>
+    
+    <!-- Flower petals on sides -->
+    <div class="petal pink1"></div>
+    <div class="petal pink2"></div>
+    <div class="petal coral1"></div>
+    <div class="petal coral2"></div>
+    
+    <!-- Gold hearts -->
+    <div class="heart gold h1"></div>
+    <div class="heart gold h2"></div>
+    <div class="heart gold h3"></div>
+    
+    <!-- Pink hearts -->
+    <div class="heart pink h1"></div>
+    <div class="heart pink h2"></div>
+    
+    <!-- Red/coral hearts -->
+    <div class="heart red h1"></div>
+    <div class="heart red h2"></div>
+  </div>
+
+  <!-- Head -->
+  <div class="head">
+    <div class="ear left"></div>
+    <div class="ear right"></div>
+
+    <div class="face"></div>
+    
+    <div class="eye left"></div>
+    <div class="eye right"></div>
+
+    <div class="nose"></div>
+    <div class="mouth"></div>
+
+    <div class="whiskers">
+      <div class="wh l1"></div><div class="wh l2"></div><div class="wh l3"></div>
+      <div class="wh r1"></div><div class="wh r2"></div><div class="wh r3"></div>
+    </div>
+  </div>
+</div>
+
+<div id="buttons">
+  <button id="yes-button">Open 💌</button>
+</div>
+
+<div class="love-message">
+  <div class="message-content">
+    I guess it's true… I found my otter half.<br><br>
+    You are an amazing woman, with a huge heart. You're incredibly smart, kind, and beautiful inside and out.<br><br>
+    You make my world warmer, calmer, and so much happier.<br><br>
+    No matter where life takes us, I'm just grateful I get to have you next to me.<br><br>
+    I love you. Thank you for being my person.<br><br>
+    <span class="message-highlight">Happy Valentine's Day, baby ❤️🦦</span>
+  </div>
+</div>
+
+<script>
+document.getElementById("yes-button").onclick = () => {
+  const button = document.getElementById("yes-button");
+  const card = document.querySelector('.card-container');
+  const message = document.querySelector('.love-message');
+  const title = document.querySelector('h1');
+  
+  // Hide button
+  button.classList.add('hidden');
+  
+  // Brief celebration before walking away
+  card.classList.add('celebrating');
+  
+  // Create falling hearts animation
+  const heartEmojis = ['💖', '💕', '💗', '💓', '💝', '❤️', '🧡', '💛'];
+  
+  for(let i = 0; i < 35; i++){
+    setTimeout(() => {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.fontSize = (Math.random() * 30 + 30) + 'px';
+      heart.style.animationDuration = (3 + Math.random() * 2) + 's';
+      document.body.appendChild(heart);
+      
+      setTimeout(() => heart.remove(), 5000);
+    }, i * 80);
+  }
+  
+  // After 1.5 seconds, otter walks away
+  setTimeout(() => {
+    card.classList.remove('celebrating');
+    card.classList.add('walk-away');
+    
+    // Show love message after otter starts walking
+    setTimeout(() => {
+      message.classList.add('show');
+      title.style.opacity = '0';
+    }, 800);
+  }, 1500);
+  
+  // Add sparkles around otter before walking
+  for(let i = 0; i < 25; i++){
+    setTimeout(() => {
+      const sparkle = document.createElement('div');
+      sparkle.innerText = '✨';
+      sparkle.style.position = 'absolute';
+      sparkle.style.left = (Math.random() * 500) + 'px';
+      sparkle.style.top = (Math.random() * 600) + 'px';
+      sparkle.style.fontSize = (Math.random() * 15 + 15) + 'px';
+      sparkle.style.animation = 'sparkle 1s ease-out forwards';
+      sparkle.style.pointerEvents = 'none';
+      document.querySelector('.card-container').appendChild(sparkle);
+      
+      setTimeout(() => sparkle.remove(), 1000);
+    }, i * 50);
+  }
+};
+</script>
+
+</body>
+</html>
